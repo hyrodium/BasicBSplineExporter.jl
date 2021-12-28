@@ -169,12 +169,11 @@ function _save_luxor_1d2d(name::String, M::AbstractBSplineManifold; up=5, down=-
 end
 
 function _save_luxor_2d2d_color(name::String, M::AbstractBSplineManifold, colors::AbstractArray{<:Colorant,2}; up=5, down=-5, right=5, left=-5, unitlength=100)
-    P = collect(bsplinespaces(M))
-    colorfunc(u) = sum(bsplinebasis(P,u).*colors)
-    _save_luxor_2d2d_color(name, M, colorfunc; up=up, down=down, right=right, left=left, unitlength=unitlength)
+    C = CustomBSplineManifold(colors, bsplinespaces(M))
+    _save_luxor_2d2d_color(name, M, C; up=up, down=down, right=right, left=left, unitlength=unitlength)
 end
 
-function _save_luxor_2d2d_color(name::String, M::AbstractBSplineManifold, colorfunc::Function; up=5, down=-5, right=5, left=-5, unitlength=100)
+function _save_luxor_2d2d_color(name::String, M::AbstractBSplineManifold, colorfunc; up=5, down=-5, right=5, left=-5, unitlength=100)
     mesh = 10
 
     P = collect(bsplinespaces(M))
@@ -199,10 +198,10 @@ function _save_luxor_2d2d_color(name::String, M::AbstractBSplineManifold, colorf
                 BezierPathSegment(map(p->LxrPt(p,unitlength),BézPts(t->M(t,K²[I₂+1]),K¹[I₁+1],K¹[I₁]))...),
                 BezierPathSegment(map(p->LxrPt(p,unitlength),BézPts(t->M(K¹[I₁],t),K²[I₂+1],K²[I₂]))...)])
         mesh1 = Luxor.mesh(BézPth, [
-            colorfunc([K¹[I₁], K²[I₂]]),
-            colorfunc([K¹[I₁+1], K²[I₂]]),
-            colorfunc([K¹[I₁+1], K²[I₂+1]]),
-            colorfunc([K¹[I₁], K²[I₂+1]])
+            colorfunc(K¹[I₁],   K²[I₂]  ),
+            colorfunc(K¹[I₁+1], K²[I₂]  ),
+            colorfunc(K¹[I₁+1], K²[I₂+1]),
+            colorfunc(K¹[I₁],   K²[I₂+1]),
             ])
         setmesh(mesh1)
         box(LxrPt([right+left,up+down]/2,unitlength), (right-left)*unitlength,(up-down)*unitlength,:fill)

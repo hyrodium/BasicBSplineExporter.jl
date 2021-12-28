@@ -43,10 +43,16 @@ import BasicBSplineExporter.array2arrayofvector
             save_png("2d2d.png",M)
             @test isfile("2d2d.png")
         end
-        @testset "luxor-color-png" begin
-            color(u) = rand(RGB)
-            save_png("2d2d_color.png", M, color)
-            @test isfile("2d2d_color.png")
+        @testset "luxor-color-a-png" begin
+            color(u1,u2) = rand(RGB)
+            save_png("2d2d_color-a.png", M, color)
+            @test isfile("2d2d_color-a.png")
+        end
+        @testset "luxor-color-b-png" begin
+            n1, n2 = dim.(bsplinespaces(M))
+            colors = rand(RGB,n1,n2)
+            save_png("2d2d_color-b.png", M, colors)
+            @test isfile("2d2d_color-b.png")
         end
     end
 
