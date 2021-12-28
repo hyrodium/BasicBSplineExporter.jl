@@ -1,0 +1,10 @@
+.DS_Store
+/Manifest.toml
+/dev/
+/docs/build/
+/docs/site/
+untitled*
+
+test/*.png
+test/*.svg
+test/*.inc
