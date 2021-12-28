@@ -1,7 +1,7 @@
 """
 Return 6 surfaces of B-spline solid
 """
-function _bsplinesurfaces(M::AbstractBSplineManifold{3})
+function _bsplinesurfaces(M::BSplineManifold{3})
     a = controlpoints(M)
     P1, P2, P3 = bsplinespaces(M)
     I1, I2, I3 = domain(P1), domain(P2), domain(P3)
