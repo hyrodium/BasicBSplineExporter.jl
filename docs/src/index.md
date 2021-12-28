@@ -1,8 +1,8 @@
-# ExportNURBS.jl
+# BasicBSplineExporter.jl
 
 ## Notice
 This document is incomplete.
-See more infomation in [test file](https://github.com/hyrodium/ExportNURBS.jl/blob/master/test/runtests.jl) or [a document of BasicBSpline.jl](https://hyrodium.github.io/BasicBSpline.jl/stable/)
+See more infomation in [test file](https://github.com/hyrodium/BasicBSplineExporter.jl/blob/master/test/runtests.jl) or [a document of BasicBSpline.jl](https://hyrodium.github.io/BasicBSpline.jl/stable/)
 
 ## Examples
 ![](img/2dim.png)
@@ -21,5 +21,5 @@ See more infomation in [test file](https://github.com/hyrodium/ExportNURBS.jl/bl
 ```
 
 ```@autodocs
-Modules = [ExportNURBS]
+Modules = [BasicBSplineExporter]
 ```

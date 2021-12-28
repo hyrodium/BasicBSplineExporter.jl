@@ -1,20 +1,20 @@
-# ExportNURBS
+# BasicBSplineExporter
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hyrodium.github.io/ExportNURBS.jl/stable)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hyrodium.github.io/ExportNURBS.jl/dev)
-[![Build Status](https://travis-ci.com/hyrodium/ExportNURBS.jl.svg?branch=master)](https://travis-ci.com/hyrodium/ExportNURBS.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hyrodium.github.io/BasicBSplineExporter.jl/stable)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hyrodium.github.io/BasicBSplineExporter.jl/dev)
+[![Build Status](https://travis-ci.com/hyrodium/BasicBSplineExporter.jl.svg?branch=master)](https://travis-ci.com/hyrodium/BasicBSplineExporter.jl)
 
 This package supports export NURBS to png, svg image. (and also supports vtk, pov, etc. in the future.)
 
 ## Example
 ```julia
 (pkg) > add https://github.com/hyrodium/BasicBSpline.jl
-(pkg) > add https://github.com/hyrodium/ExportNURBS.jl
+(pkg) > add https://github.com/hyrodium/BasicBSplineExporter.jl
 ```
 
 ```julia
 using BasicBSpline
-using ExportNURBS
+using BasicBSplineExporter
 p = 2
 k = Knots(1:8)
 P = BSplineSpace(p,k)

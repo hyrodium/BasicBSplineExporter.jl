@@ -1,4 +1,4 @@
-module ExportNURBS
+module BasicBSplineExporter
 
 using BasicBSpline
 using Luxor

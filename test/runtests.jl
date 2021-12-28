@@ -1,10 +1,10 @@
-using ExportNURBS
+using BasicBSplineExporter
 using Test
 using Random
 using BasicBSpline
 using Colors
 
-@testset "ExportNURBS.jl" begin
+@testset "BasicBSplineExporter.jl" begin
     Random.seed!(42)
 
     @testset "1d2d" begin

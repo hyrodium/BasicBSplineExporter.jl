@@ -1,17 +1,17 @@
-using Documenter, ExportNURBS
+using Documenter, BasicBSplineExporter
 
 makedocs(;
-    modules=[ExportNURBS],
+    modules=[BasicBSplineExporter],
     format=Documenter.HTML(),
     pages=[
         "Home" => "index.md",
     ],
-    repo="https://github.com/hyrodium/ExportNURBS.jl/blob/{commit}{path}#L{line}",
-    sitename="ExportNURBS.jl",
+    repo="https://github.com/hyrodium/BasicBSplineExporter.jl/blob/{commit}{path}#L{line}",
+    sitename="BasicBSplineExporter.jl",
     authors="hyrodium <hyrodium@gmail.com>",
     assets=String[],
 )
 
 deploydocs(;
-    repo="github.com/hyrodium/ExportNURBS.jl",
+    repo="github.com/hyrodium/BasicBSplineExporter.jl",
 )

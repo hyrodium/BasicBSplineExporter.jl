@@ -1,4 +1,4 @@
-name = "ExportNURBS"
+name = "BasicBSplineExporter"
 uuid = "23a6489c-a236-4e7b-aa89-a91a497ba26e"
 authors = ["hyrodium <hyrodium@gmail.com>"]
 version = "0.0.3"
