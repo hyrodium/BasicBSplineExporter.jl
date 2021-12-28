@@ -5,12 +5,13 @@ This package supports export `BasicBSpline.BSplineManifold` to:
 * SVG image (`.png`)
 * POV-Ray mesh (`.inc`)
 
-## First example
+## Installation
 ```julia
-(pkg) > add https://github.com/hyrodium/BasicBSpline.jl
-(pkg) > add https://github.com/hyrodium/BasicBSplineExporter.jl
+] add BasicBSpline
+] add https://github.com/hyrodium/BasicBSplineExporter.jl
 ```
 
+## First example
 ```julia
 using BasicBSpline
 using BasicBSplineExporter
