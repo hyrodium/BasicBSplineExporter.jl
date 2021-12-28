@@ -45,11 +45,11 @@ function _scriptpov(c::ColorAlpha)
 end
 
 function _spheres(M::AbstractBSplineManifold; preindent=0, radius_name="radius_sphere")
-    _spheres(BasicBSpline.array2arrayofvector(controlpoints(M)), preindent=preindent, radius_name=radius_name)
+    _spheres(array2arrayofvector(controlpoints(M)), preindent=preindent, radius_name=radius_name)
 end
 
 function _cylinders(M::AbstractBSplineManifold; preindent=0, radius_name="radius_cylinder")
-    _cylinders(BasicBSpline.array2arrayofvector(controlpoints(M)), preindent=preindent, radius_name=radius_name)
+    _cylinders(array2arrayofvector(controlpoints(M)), preindent=preindent, radius_name=radius_name)
 end
 
 function _spheres(a::AbstractArray{<:AbstractVector{<:Real}}; preindent=0, radius_name="radius_sphere")
@@ -105,7 +105,7 @@ end
 function _curve(M::AbstractBSplineManifold; mesh=10, preindent=0, radius_name="radius_curve")
     P = bsplinespaces(M)[1]
     p = degree(P)
-    k = knots(P)
+    k = knotvector(P)
     l = length(k)
     m = mesh
 
@@ -133,23 +133,21 @@ http://povray.org/documentation/3.7.0/r3_4.html#r3_4_5_2_4
 function _surface(M::AbstractBSplineManifold; mesh::Int=10, smooth=true, preindent=0)
     P = bsplinespaces(M)
     p1, p2 = p = degree.(P)
-    k1, k2 = k = knots.(P)
+    k1, k2 = k = knotvector.(P)
     l1, l2 = l = length.(k)
     m1, m2 = m = (mesh, mesh)
 
     ts1 = unique!(vcat([range(k1[i],k1[i+1],length = m1+1) for i in p1+1:l1-p1-1]...))
     ts2 = unique!(vcat([range(k2[i],k2[i+1],length = m2+1) for i in p2+1:l2-p2-1]...))
-
     N1 = length(ts1)-1
     N2 = length(ts2)-1
-
-    ts = [[ts1[i], ts2[j]] for i in eachindex(ts1), j in eachindex(ts2)]
-    tc = [(ts[i,j] + ts[i+1,j] + ts[i,j+1] + ts[i+1,j+1])/4 for i in 1:N1, j in 1:N2]
+    cs1 = [(ts1[i]+ts1[i+1])/2 for i in 1:N1]
+    cs2 = [(ts2[i]+ts2[i+1])/2 for i in 1:N1]
 
     # 𝒆(t) = normalize(cross(BasicBSpline.tangentvectors(M,t...)...))
 
-    𝒑s = M.(ts)
-    𝒑c = M.(tc)
+    𝒑s = [M(t1,t2) for t1 in ts1, t2 in ts2]
+    𝒑c = [M(t1,t2) for t1 in cs1, t2 in cs2]
 
     # 𝒆s = 𝒆.(ts)
     # 𝒆c = 𝒆.(tc)
