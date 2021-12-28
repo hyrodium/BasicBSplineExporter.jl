@@ -6,6 +6,10 @@ using Colors
 import BasicBSplineExporter.arrayofvector2array
 import BasicBSplineExporter.array2arrayofvector
 
+DIR = "temporary"
+rm(DIR, force=true, recursive=true)
+mkpath(DIR)
+
 @testset "BasicBSplineExporter.jl" begin
     Random.seed!(42)
 
@@ -18,12 +22,14 @@ import BasicBSplineExporter.array2arrayofvector
         M = BSplineManifold(arrayofvector2array(a), (P,)) # Define B-spline manifold
 
         @testset "luxor-svg" begin
-            save_svg("1d2d.svg",M)
-            @test isfile("1d2d.svg")
+            path = joinpath(DIR, "1d2d.svg")
+            save_svg(path,M)
+            @test isfile(path)
         end
         @testset "luxor-png" begin
-            save_png("1d2d.png",M)
-            @test isfile("1d2d.png")
+            path = joinpath(DIR, "1d2d.png")
+            save_png(path,M)
+            @test isfile(path)
         end
     end
 
@@ -36,23 +42,27 @@ import BasicBSplineExporter.array2arrayofvector
         M = BSplineManifold(arrayofvector2array(a), (P, P)) # Define B-spline manifold
 
         @testset "luxor-svg" begin
-            save_svg("2d2d.svg",M)
-            @test isfile("2d2d.svg")
+            path = joinpath(DIR, "2d2d.svg")
+            save_svg(path,M)
+            @test isfile(path)
         end
         @testset "luxor-png" begin
-            save_png("2d2d.png",M)
-            @test isfile("2d2d.png")
+            path = joinpath(DIR, "2d2d.png")
+            save_png(path,M)
+            @test isfile(path)
         end
         @testset "luxor-color-a-png" begin
             color(u1,u2) = rand(RGB)
-            save_png("2d2d_color-a.png", M, color)
-            @test isfile("2d2d_color-a.png")
+            path = joinpath(DIR, "2d2d_color-a.png")
+            save_png(path, M, color)
+            @test isfile(path)
         end
         @testset "luxor-color-b-png" begin
             n1, n2 = dim.(bsplinespaces(M))
             colors = rand(RGB,n1,n2)
-            save_png("2d2d_color-b.png", M, colors)
-            @test isfile("2d2d_color-b.png")
+            path = joinpath(DIR, "2d2d_color-b.png")
+            save_png(path, M, colors)
+            @test isfile(path)
         end
     end
 
@@ -65,8 +75,9 @@ import BasicBSplineExporter.array2arrayofvector
         M = BSplineManifold(arrayofvector2array(a), (P,)) # Define B-spline manifold
 
         @testset "povray" begin
-            save_pov("1d3d.inc",M)
-            @test isfile("1d3d.inc")
+            path = joinpath(DIR, "1d3d.inc")
+            save_pov(path,M)
+            @test isfile(path)
         end
     end
 
@@ -79,8 +90,9 @@ import BasicBSplineExporter.array2arrayofvector
         M = BSplineManifold(arrayofvector2array(a), (P, P)) # Define B-spline manifold
 
         @testset "povray" begin
-            save_pov("2d3d.inc", M , maincolor=RGBA(0,1,1,0.95))
-            @test isfile("2d3d.inc")
+            path = joinpath(DIR, "2d3d.inc")
+            save_pov(path, M , maincolor=RGBA(0,1,1,0.95))
+            @test isfile(path)
         end
     end
 
@@ -93,8 +105,9 @@ import BasicBSplineExporter.array2arrayofvector
         M = BSplineManifold(arrayofvector2array(a), (P, P, P)) # Define B-spline manifold
 
         @testset "povray" begin
-            save_pov("3d3d.inc", M, maincolor=RGBA(0.5,0.1,1,0.8))
-            @test isfile("3d3d.inc")
+            path = joinpath(DIR, "3d3d.inc")
+            save_pov(path, M, maincolor=RGBA(0.5,0.1,1,0.8))
+            @test isfile(path)
         end
     end
 end
