@@ -1,12 +1,11 @@
 # BasicBSplineExporter
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hyrodium.github.io/BasicBSplineExporter.jl/stable)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hyrodium.github.io/BasicBSplineExporter.jl/dev)
-[![Build Status](https://travis-ci.com/hyrodium/BasicBSplineExporter.jl.svg?branch=master)](https://travis-ci.com/hyrodium/BasicBSplineExporter.jl)
+This package supports export `BasicBSpline.BSplineManifold` to:
+* PNG image (`.png`)
+* SVG image (`.png`)
+* POV-Ray mesh (`.inc`)
 
-This package supports export NURBS to png, svg image. (and also supports vtk, pov, etc. in the future.)
-
-## Example
+## First example
 ```julia
 (pkg) > add https://github.com/hyrodium/BasicBSpline.jl
 (pkg) > add https://github.com/hyrodium/BasicBSplineExporter.jl
@@ -28,4 +27,15 @@ save_png("2dim.png", M)
 save_png("2dim_refinement.png", M′)
 ```
 
-![](docs/src/img/2dim.png) ![](docs/src/img/2dim_refinement.png)
+![](img/2dim.png)
+![](img/2dim_refinement.png)
+
+## Other examples
+Here are some images rendared with POV-Ray.
+
+![](img/pov_1d3d.png)
+![](img/pov_2d3d.png)
+![](img/pov_3d3d.png)
+
+See `test/runtests.jl` for more examples.
+The documentation is still in progress and will be hosted in [BasicBSpline.jl documentation](https://hyrodium.github.io/BasicBSpline.jl/dev/).
