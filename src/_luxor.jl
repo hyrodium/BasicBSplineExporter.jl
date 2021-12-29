@@ -15,7 +15,7 @@ end
 """
 export svg file
 """
-function save_svg(name::String, M::BSplineManifold{1}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
+function save_svg(name::String, M::AbstractBSplineManifold{1}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
     M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "svg"
         name = name * ".svg"
@@ -26,7 +26,7 @@ end
 """
 export svg file
 """
-function save_svg(name::String, M::BSplineManifold{2}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
+function save_svg(name::String, M::AbstractBSplineManifold{2}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
     M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "svg"
         name = name * ".svg"
@@ -37,7 +37,7 @@ end
 """
 export png file
 """
-function save_png(name::String, M::BSplineManifold{1}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
+function save_png(name::String, M::AbstractBSplineManifold{1}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
     M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "png"
         name = name * ".png"
@@ -48,7 +48,7 @@ end
 """
 export png file
 """
-function save_png(name::String, M::BSplineManifold{2}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
+function save_png(name::String, M::AbstractBSplineManifold{2}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
     M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "png"
         name = name * ".png"
@@ -59,7 +59,7 @@ end
 """
 export png file
 """
-function save_png(name::String, M::BSplineManifold{2}, colors::AbstractArray{<:Colorant,2}; xlims=(-5,5), ylims=(-5,5), unitlength=100)
+function save_png(name::String, M::AbstractBSplineManifold{2}, colors::AbstractArray{<:Colorant,2}; xlims=(-5,5), ylims=(-5,5), unitlength=100)
     M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "png"
         name = name * ".png"
@@ -71,7 +71,7 @@ end
 """
 export png file
 """
-function save_png(name::String, M::BSplineManifold{2}, colorfunc::Function; xlims=(-5,5), ylims=(-5,5), unitlength=100)
+function save_png(name::String, M::AbstractBSplineManifold{2}, colorfunc::Function; xlims=(-5,5), ylims=(-5,5), unitlength=100)
     M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "png"
         name = name * ".png"
