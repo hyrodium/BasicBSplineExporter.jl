@@ -5,6 +5,7 @@ using Luxor
 using IntervalSets
 using Colors
 using ColorVectorSpace
+using StaticArrays
 
 export save_png, save_svg, save_pov
 

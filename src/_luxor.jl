@@ -16,66 +16,72 @@ end
 export svg file
 """
 function save_svg(name::String, M::BSplineManifold{1}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
+    M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "svg"
         name = name * ".svg"
     end
-    _save_luxor_1d2d(name, M, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
+    _save_luxor_1d2d(name, M′, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
 end
 
 """
 export svg file
 """
 function save_svg(name::String, M::BSplineManifold{2}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
+    M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "svg"
         name = name * ".svg"
     end
-    _save_luxor_2d2d(name, M, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
+    _save_luxor_2d2d(name, M′, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
 end
 
 """
 export png file
 """
 function save_png(name::String, M::BSplineManifold{1}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
+    M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "png"
         name = name * ".png"
     end
-    _save_luxor_1d2d(name, M, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
+    _save_luxor_1d2d(name, M′, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
 end
 
 """
 export png file
 """
 function save_png(name::String, M::BSplineManifold{2}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
+    M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "png"
         name = name * ".png"
     end
-    _save_luxor_2d2d(name, M, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
+    _save_luxor_2d2d(name, M′, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
 end
 
 """
 export png file
 """
 function save_png(name::String, M::BSplineManifold{2}, colors::AbstractArray{<:Colorant,2}; xlims=(-5,5), ylims=(-5,5), unitlength=100)
+    M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "png"
         name = name * ".png"
     end
 
-    _save_luxor_2d2d_color(name, M, colors, xlims=xlims, ylims=ylims, unitlength=unitlength)
+    _save_luxor_2d2d_color(name, M′, colors, xlims=xlims, ylims=ylims, unitlength=unitlength)
 end
 
 """
 export png file
 """
 function save_png(name::String, M::BSplineManifold{2}, colorfunc::Function; xlims=(-5,5), ylims=(-5,5), unitlength=100)
+    M′ = _convert_to_custom(M)
     if split(name,'.')[end] ≠ "png"
         name = name * ".png"
     end
 
-    _save_luxor_2d2d_color(name, M, colorfunc, xlims=xlims, ylims=ylims, unitlength=unitlength)
+    _save_luxor_2d2d_color(name, M′, colorfunc, xlims=xlims, ylims=ylims, unitlength=unitlength)
 end
 
 
-function _save_luxor_2d2d(name::String, M::BSplineManifold{2}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0), subcolor=RGB(0.5,0.5,0.5))
+function _save_luxor_2d2d(name::String, M::CustomBSplineManifold{2, Deg, <:StaticVector{2}}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0), subcolor=RGB(0.5,0.5,0.5)) where Deg
     left, right = xlims
     down, up = ylims
     linecolor = maincolor
@@ -115,7 +121,7 @@ function _save_luxor_2d2d(name::String, M::BSplineManifold{2}; xlims=(-5,5), yli
     end
 
     if points
-        CtrlPts = [_luxor_pt(a[i,j,:],unitlength) for i in 1:size(a)[1], j in 1:size(a)[2]]
+        CtrlPts = [_luxor_pt(a[i,j],unitlength) for i in 1:size(a)[1], j in 1:size(a)[2]]
 
         setcolor(segmentcolor)
         setline(thickness)
@@ -133,7 +139,7 @@ function _save_luxor_2d2d(name::String, M::BSplineManifold{2}; xlims=(-5,5), yli
     return nothing
 end
 
-function _save_luxor_1d2d(name::String, M::BSplineManifold{1}; xlims=(-5,5), ylims=(-5,5), mesh=10, unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5))
+function _save_luxor_1d2d(name::String, M::CustomBSplineManifold{1, Deg, <:StaticVector{2}}; xlims=(-5,5), ylims=(-5,5), mesh=10, unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5)) where Deg
     left, right = xlims
     down, up = ylims
     linecolor = maincolor
@@ -160,7 +166,7 @@ function _save_luxor_1d2d(name::String, M::BSplineManifold{1}; xlims=(-5,5), yli
     drawbezierpath(BezierPath([BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(u¹->M(u¹),K¹[i],K¹[i+1]))...) for i in 1:N¹]),:stroke)
 
     if points
-        CtrlPts = [_luxor_pt(a[i,:],unitlength) for i in 1:n¹]
+        CtrlPts = [_luxor_pt(a[i],unitlength) for i in 1:n¹]
 
         setcolor(segmentcolor)
         setline(thickness)
@@ -173,12 +179,12 @@ function _save_luxor_1d2d(name::String, M::BSplineManifold{1}; xlims=(-5,5), yli
     return nothing
 end
 
-function _save_luxor_2d2d_color(name::String, M::BSplineManifold{2}, colors::AbstractArray{<:Colorant,2}; xlims=(-5,5), ylims=(-5,5), unitlength=100)
+function _save_luxor_2d2d_color(name::String, M::CustomBSplineManifold{2, Deg, <:StaticVector{2}}, colors::AbstractArray{<:Colorant,2}; xlims=(-5,5), ylims=(-5,5), unitlength=100) where Deg
     C = CustomBSplineManifold(colors, bsplinespaces(M))
     _save_luxor_2d2d_color(name, M, C; xlims=xlims, ylims=ylims, unitlength=unitlength)
 end
 
-function _save_luxor_2d2d_color(name::String, M::BSplineManifold{2}, colorfunc; xlims=(-5,5), ylims=(-5,5), unitlength=100)
+function _save_luxor_2d2d_color(name::String, M::CustomBSplineManifold{2, Deg, <:StaticVector{2}}, colorfunc; xlims=(-5,5), ylims=(-5,5), unitlength=100) where Deg
     left, right = xlims
     down, up = ylims
     mesh = 10
