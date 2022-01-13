@@ -1,7 +1,7 @@
 name = "BasicBSplineExporter"
 uuid = "769ccd65-a659-4118-b5e3-8f57c631b3e0"
 authors = ["hyrodium <hyrodium@gmail.com>"]
-version = "0.0.2"
+version = "0.0.3"
 
 [deps]
 BasicBSpline = "4c5d9882-2acf-4ea4-9e48-968fd4518195"
@@ -12,7 +12,7 @@ Luxor = "ae8d54c2-7ccd-5906-9d76-62fc9837b5bc"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 
 [compat]
-BasicBSpline = "0.3"
+BasicBSpline = "0.3, 0.4"
 julia = "1"
 
 [extras]
