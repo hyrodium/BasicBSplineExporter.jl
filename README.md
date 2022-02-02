@@ -1,5 +1,8 @@
 # BasicBSplineExporter
 
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hyrodium.github.io/BasicBSpline.jl/stable/basicbsplineexporter/)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hyrodium.github.io/BasicBSpline.jl/dev/basicbsplineexporter/)
+
 This package supports export `BasicBSpline.BSplineManifold` and `BasicBSpline.CustomBSplineManifold{Dim,Deg,<:StaticVector}` to:
 * PNG image (`.png`)
 * SVG image (`.png`)
@@ -40,4 +43,3 @@ Here are some images rendared with POV-Ray.
 ![](img/pov_3d3d.png)
 
 See `test/runtests.jl` for more examples.
-The documentation is still in progress and will be hosted in [BasicBSpline.jl documentation](https://hyrodium.github.io/BasicBSpline.jl/dev/).
