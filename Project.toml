@@ -14,7 +14,7 @@ StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 [compat]
 BasicBSpline = "0.3, 0.4"
 Colors = "0.12"
-Luxor = "2"
+Luxor = "2, 3"
 StaticArrays = "1"
 julia = "1"
 
