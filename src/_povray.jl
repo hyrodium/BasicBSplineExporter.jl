@@ -44,11 +44,11 @@ function _scriptpov(c::ColorAlpha)
     return "rgbt"*_scriptpov(v)
 end
 
-function _spheres(M::CustomBSplineManifold{Dim, Deg, <:StaticVector{3}}; preindent=0, radius_name="radius_sphere") where {Dim,Deg}
+function _spheres(M::BSplineManifold{Dim, Deg, <:StaticVector{3}}; preindent=0, radius_name="radius_sphere") where {Dim,Deg}
     _spheres(controlpoints(M), preindent=preindent, radius_name=radius_name)
 end
 
-function _cylinders(M::CustomBSplineManifold{Dim, Deg, <:StaticVector{3}}; preindent=0, radius_name="radius_cylinder") where {Dim,Deg}
+function _cylinders(M::BSplineManifold{Dim, Deg, <:StaticVector{3}}; preindent=0, radius_name="radius_cylinder") where {Dim,Deg}
     _cylinders(controlpoints(M), preindent=preindent, radius_name=radius_name)
 end
 
@@ -102,7 +102,7 @@ function _cylinders(a::AbstractArray{<:AbstractVector{<:Real},3}; preindent=0, r
     script *= "}\n"
 end
 
-function _curve(M::CustomBSplineManifold{1, Deg, <:StaticVector{3}}; mesh=10, preindent=0, radius_name="radius_curve") where Deg
+function _curve(M::BSplineManifold{1, Deg, <:StaticVector{3}}; mesh=10, preindent=0, radius_name="radius_curve") where Deg
     P = bsplinespaces(M)[1]
     p = degree(P)
     k = knotvector(P)
@@ -130,7 +130,7 @@ end
 Generate POV-Ray script of `mesh2`
 http://povray.org/documentation/3.7.0/r3_4.html#r3_4_5_2_4
 """
-function _surface(M::CustomBSplineManifold{2, Deg, <:StaticVector{3}}; mesh::Int=10, smooth=true, preindent=0) where Deg
+function _surface(M::BSplineManifold{2, Deg, <:StaticVector{3}}; mesh::Int=10, smooth=true, preindent=0) where Deg
     P = bsplinespaces(M)
     p1, p2 = p = degree.(P)
     k1, k2 = k = knotvector.(P)
@@ -191,7 +191,7 @@ function _surface(M::CustomBSplineManifold{2, Deg, <:StaticVector{3}}; mesh::Int
     return script
 end
 
-function _solid(M::CustomBSplineManifold{3, Deg, <:StaticVector{3}}; mesh=10, smooth=true, preindent=0) where Deg
+function _solid(M::BSplineManifold{3, Deg, <:StaticVector{3}}; mesh=10, smooth=true, preindent=0) where Deg
     surfaces = _bsplinesurfaces(M)
 
     script = "  "^(preindent)
@@ -205,7 +205,7 @@ function _solid(M::CustomBSplineManifold{3, Deg, <:StaticVector{3}}; mesh=10, sm
     return script
 end
 
-function _save_povray_1d3d(name::String, M::CustomBSplineManifold{1, Deg, <:StaticVector{3}}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5)) where Deg
+function _save_povray_1d3d(name::String, M::BSplineManifold{1, Deg, <:StaticVector{3}}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5)) where Deg
     radius_curve = thickness
     radius_cylinder = thickness
     radius_sphere = 2*radius_cylinder
@@ -243,7 +243,7 @@ function _save_povray_1d3d(name::String, M::CustomBSplineManifold{1, Deg, <:Stat
     return nothing
 end
 
-function _save_povray_2d3d(name::String, M::CustomBSplineManifold{2, Deg, <:StaticVector{3}}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5)) where Deg
+function _save_povray_2d3d(name::String, M::BSplineManifold{2, Deg, <:StaticVector{3}}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5)) where Deg
     radius_cylinder = thickness
     radius_sphere = 2*radius_cylinder
     color_cylinder = subcolor
@@ -279,7 +279,7 @@ function _save_povray_2d3d(name::String, M::CustomBSplineManifold{2, Deg, <:Stat
     return nothing
 end
 
-function _save_povray_3d3d(name::String, M::CustomBSplineManifold{3, Deg, <:StaticVector{3}}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5)) where Deg
+function _save_povray_3d3d(name::String, M::BSplineManifold{3, Deg, <:StaticVector{3}}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5)) where Deg
     radius_cylinder = thickness
     radius_sphere = 2*radius_cylinder
     color_cylinder = subcolor
@@ -316,13 +316,12 @@ function _save_povray_3d3d(name::String, M::CustomBSplineManifold{3, Deg, <:Stat
 end
 
 function save_pov(name::String, M::AbstractBSplineManifold{Dim}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5)) where Dim
-    M′ = _convert_to_custom(M)
     if Dim == 1
-        _save_povray_1d3d(name,M′,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
+        _save_povray_1d3d(name,M,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
     elseif Dim == 2
-        _save_povray_2d3d(name,M′,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
+        _save_povray_2d3d(name,M,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
     elseif Dim == 3
-        _save_povray_3d3d(name,M′,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
+        _save_povray_3d3d(name,M,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
     else
         error("the dimension of B-spline manifold must be 3 or less")
     end

@@ -1,7 +1,7 @@
 """
 Return 6 surfaces of B-spline solid
 """
-function _bsplinesurfaces(M::CustomBSplineManifold{3})
+function _bsplinesurfaces(M::BSplineManifold{3})
     a = controlpoints(M)
     P1, P2, P3 = bsplinespaces(M)
     I1, I2, I3 = domain(P1), domain(P2), domain(P3)
@@ -28,12 +28,12 @@ function _bsplinesurfaces(M::CustomBSplineManifold{3})
     a_⚄ = sum(a[:,i2,:,]*B_⚄[i2] for i2 in 1:n2)
     a_⚅ = sum(a[:,:,i3,]*B_⚅[i3] for i3 in 1:n3)
 
-    M_⚀ = CustomBSplineManifold(a_⚀,(P2,P3))
-    M_⚁ = CustomBSplineManifold(a_⚁,(P1,P3))
-    M_⚂ = CustomBSplineManifold(a_⚂,(P1,P2))
-    M_⚃ = CustomBSplineManifold(a_⚃,(P2,P3))
-    M_⚄ = CustomBSplineManifold(a_⚄,(P1,P3))
-    M_⚅ = CustomBSplineManifold(a_⚅,(P1,P2))
+    M_⚀ = BSplineManifold(a_⚀,(P2,P3))
+    M_⚁ = BSplineManifold(a_⚁,(P1,P3))
+    M_⚂ = BSplineManifold(a_⚂,(P1,P2))
+    M_⚃ = BSplineManifold(a_⚃,(P2,P3))
+    M_⚄ = BSplineManifold(a_⚄,(P1,P3))
+    M_⚅ = BSplineManifold(a_⚅,(P1,P2))
 
     return (M_⚀, M_⚁, M_⚂, M_⚃, M_⚄, M_⚅)
 end
@@ -55,15 +55,4 @@ function _array2arrayofvector(a::AbstractArray{T,d}) where {d, T<:Real}
     a_vec = [SVector{d̂}(a_flat[i,:]) for i in 1:prod(N)]
     a′ = reshape(a_vec,N)
     return a′
-end
-
-function _convert_to_custom(M::BSplineManifold)
-    P = bsplinespaces(M)
-    a = controlpoints(M)
-    a′ = _array2arrayofvector(a)
-    CustomBSplineManifold(a′,P)
-end
-
-function _convert_to_custom(M::CustomBSplineManifold)
-    M
 end

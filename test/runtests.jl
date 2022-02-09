@@ -10,5 +10,4 @@ import BasicBSplineExporter._array2arrayofvector
 @testset "BasicBSplineExporter.jl" begin
     Random.seed!(42)
     include("test_BSplineManifold.jl")
-    include("test_CustomBSplineManifold.jl")
 end

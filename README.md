@@ -3,7 +3,7 @@
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hyrodium.github.io/BasicBSpline.jl/stable/basicbsplineexporter/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hyrodium.github.io/BasicBSpline.jl/dev/basicbsplineexporter/)
 
-This package supports export `BasicBSpline.BSplineManifold` and `BasicBSpline.CustomBSplineManifold{Dim,Deg,<:StaticVector}` to:
+This package supports export `BasicBSpline.BSplineManifold{Dim,Deg,<:StaticVector}` to:
 * PNG image (`.png`)
 * SVG image (`.png`)
 * POV-Ray mesh (`.inc`)
@@ -25,7 +25,7 @@ k = KnotVector(1:8)
 P = BSplineSpace{p}(k)
 rand_a = [rand(2) for i in 1:dim(P), j in 1:dim(P)]
 a = [SVector(2*i-6.5, 2*j-6.5) for i in 1:dim(P), j in 1:dim(P)] + rand_a
-M = CustomBSplineManifold(a, (P,P))
+M = BSplineManifold(a, (P,P))
 k₊=(KnotVector(3.3,4.2),KnotVector(3.8,3.2,5.3))
 M′ = refinement(M,k₊=k₊)
 save_png("2dim.png", M)

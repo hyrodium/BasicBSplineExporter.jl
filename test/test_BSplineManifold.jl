@@ -10,8 +10,8 @@ mkpath(DIR)
         k = KnotVector(1:12) # knot vector
         P = BSplineSpace{p}(k) # B-spline space
         rand_a = [randn(2) for i in 1:dim(P)] / 2
-        a = [[2 * i - 6, 0] for i in 1:dim(P)] + rand_a # random generated control points
-        M = BSplineManifold(_arrayofvector2array(a), (P,)) # Define B-spline manifold
+        a = [SVector(2i-6, 0) for i in 1:dim(P)] + rand_a # random generated control points
+        M = BSplineManifold(a, (P,)) # Define B-spline manifold
 
         @testset "luxor-svg" begin
             path = joinpath(DIR, "1d2d.svg")
@@ -30,8 +30,8 @@ mkpath(DIR)
         k = KnotVector(1:12) # knot vector
         P = BSplineSpace{p}(k) # B-spline space
         rand_a = [randn(2) for i in 1:dim(P), j in 1:dim(P)] / 2
-        a = [[2 * i - 6, 2 * j - 6] for i in 1:dim(P), j in 1:dim(P)] + rand_a # random generated control points
-        M = BSplineManifold(_arrayofvector2array(a), (P, P)) # Define B-spline manifold
+        a = [SVector(2i-6, 2j-6) for i in 1:dim(P), j in 1:dim(P)] + rand_a # random generated control points
+        M = BSplineManifold(a, (P, P)) # Define B-spline manifold
 
         @testset "luxor-svg" begin
             path = joinpath(DIR, "2d2d.svg")
@@ -63,8 +63,8 @@ mkpath(DIR)
         k = KnotVector(rand(12)) # knot vector
         P = BSplineSpace{p}(k) # B-spline space
         rand_a = [randn(3) for i in 1:dim(P)]
-        a = [[2 * i - 6, 2 * i - 6, 0] for i in 1:dim(P)] + rand_a # random generated control points
-        M = BSplineManifold(_arrayofvector2array(a), (P,)) # Define B-spline manifold
+        a = [SVector(2i-6, 2i-6, 0) for i in 1:dim(P)] + rand_a # random generated control points
+        M = BSplineManifold(a, (P,)) # Define B-spline manifold
 
         @testset "povray" begin
             path = joinpath(DIR, "1d3d.inc")
@@ -78,8 +78,8 @@ mkpath(DIR)
         k = KnotVector(1:12) # knot vector
         P = BSplineSpace{p}(k) # B-spline space
         rand_a = [randn(3) for i in 1:dim(P), j in 1:dim(P)] / 2
-        a = [[2 * i - 6, 2 * j - 6, 0] for i in 1:dim(P), j in 1:dim(P)] + rand_a # random generated control points
-        M = BSplineManifold(_arrayofvector2array(a), (P, P)) # Define B-spline manifold
+        a = [SVector(2i-6, 2j-6, 0) for i in 1:dim(P), j in 1:dim(P)] + rand_a # random generated control points
+        M = BSplineManifold(a, (P, P)) # Define B-spline manifold
 
         @testset "povray" begin
             path = joinpath(DIR, "2d3d.inc")
@@ -93,8 +93,8 @@ mkpath(DIR)
         k = KnotVector(1:12) # knot vector
         P = BSplineSpace{p}(k) # B-spline space
         rand_a = [randn(3) for i in 1:dim(P), j in 1:dim(P), k in 1:dim(P)] / 4
-        a = [[2 * i - 6, 2 * j - 6, 2 * k - 6] for i in 1:dim(P), j in 1:dim(P), k in 1:dim(P)] + rand_a # random generated control points
-        M = BSplineManifold(_arrayofvector2array(a), (P, P, P)) # Define B-spline manifold
+        a = [SVector(2i-6, 2j-6, 2k-6) for i in 1:dim(P), j in 1:dim(P), k in 1:dim(P)] + rand_a # random generated control points
+        M = BSplineManifold(a, (P, P, P)) # Define B-spline manifold
 
         @testset "povray" begin
             path = joinpath(DIR, "3d3d.inc")
