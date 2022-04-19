@@ -1,4 +1,4 @@
-DIR = joinpath("temporary","BSplineManifold")
+DIR = joinpath("tmp","BSplineManifold")
 rm(DIR, force=true, recursive=true)
 mkpath(DIR)
 
