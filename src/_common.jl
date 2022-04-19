@@ -14,12 +14,12 @@ function _bsplinesurfaces(M::BSplineManifold{3})
     t_⚄ = maximum(I2)
     t_⚅ = maximum(I3)
 
-    B_⚀ = [bsplinebasis(P1,i,t_⚀) for i in 1:n1]
-    B_⚁ = [bsplinebasis(P2,i,t_⚁) for i in 1:n2]
-    B_⚂ = [bsplinebasis(P3,i,t_⚂) for i in 1:n3]
-    B_⚃ = [bsplinebasis(P1,i,t_⚃) for i in 1:n1]
-    B_⚄ = [bsplinebasis(P2,i,t_⚄) for i in 1:n2]
-    B_⚅ = [bsplinebasis(P3,i,t_⚅) for i in 1:n3]
+    B_⚀ = bsplinebasis.(P1,1:n1,t_⚀)
+    B_⚁ = bsplinebasis.(P2,1:n2,t_⚁)
+    B_⚂ = bsplinebasis.(P3,1:n3,t_⚂)
+    B_⚃ = bsplinebasis.(P1,1:n1,t_⚃)
+    B_⚄ = bsplinebasis.(P2,1:n2,t_⚄)
+    B_⚅ = bsplinebasis.(P3,1:n3,t_⚅)
 
     a_⚀ = sum(a[i1,:,:,]*B_⚀[i1] for i1 in 1:n1)
     a_⚁ = sum(a[:,i2,:,]*B_⚁[i2] for i2 in 1:n2)
