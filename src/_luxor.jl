@@ -16,9 +16,7 @@ end
 export svg file
 """
 function save_svg(name::AbstractString, M::AbstractBSplineManifold{1}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
-    if split(name,'.')[end] ≠ "svg"
-        name = name * ".svg"
-    end
+    split(name,'.')[end] ≠ "svg" && error("extension shuould be .svg")
     _save_luxor_1d2d(name, M, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
 end
 
@@ -26,9 +24,7 @@ end
 export svg file
 """
 function save_svg(name::AbstractString, M::AbstractBSplineManifold{2}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
-    if split(name,'.')[end] ≠ "svg"
-        name = name * ".svg"
-    end
+    split(name,'.')[end] ≠ "svg" && error("extension shuould be .svg")
     _save_luxor_2d2d(name, M, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
 end
 
@@ -36,9 +32,7 @@ end
 export png file
 """
 function save_png(name::AbstractString, M::AbstractBSplineManifold{1}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
-    if split(name,'.')[end] ≠ "png"
-        name = name * ".png"
-    end
+    split(name,'.')[end] ≠ "png" && error("extension shuould be .png")
     _save_luxor_1d2d(name, M, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
 end
 
@@ -46,9 +40,7 @@ end
 export png file
 """
 function save_png(name::AbstractString, M::AbstractBSplineManifold{2}; xlims=(-5,5), ylims=(-5,5), mesh=(10,10), unitlength=100, points=true, thickness=1, backgroundcolor=RGB(1,1,1), maincolor=RGB(1,0,0))
-    if split(name,'.')[end] ≠ "png"
-        name = name * ".png"
-    end
+    split(name,'.')[end] ≠ "png" && error("extension shuould be .png")
     _save_luxor_2d2d(name, M, xlims=xlims, ylims=ylims, mesh=mesh, unitlength=unitlength, points=points, thickness=thickness, backgroundcolor=backgroundcolor, maincolor=maincolor)
 end
 
@@ -56,9 +48,7 @@ end
 export png file
 """
 function save_png(name::AbstractString, M::AbstractBSplineManifold{2}, colors::AbstractArray{<:Colorant,2}; xlims=(-5,5), ylims=(-5,5), unitlength=100)
-    if split(name,'.')[end] ≠ "png"
-        name = name * ".png"
-    end
+    split(name,'.')[end] ≠ "png" && error("extension shuould be .png")
 
     _save_luxor_2d2d_color(name, M, colors, xlims=xlims, ylims=ylims, unitlength=unitlength)
 end
@@ -67,9 +57,7 @@ end
 export png file
 """
 function save_png(name::AbstractString, M::AbstractBSplineManifold{2}, colorfunc::Function; xlims=(-5,5), ylims=(-5,5), unitlength=100)
-    if split(name,'.')[end] ≠ "png"
-        name = name * ".png"
-    end
+    split(name,'.')[end] ≠ "png" && error("extension shuould be .png")
 
     _save_luxor_2d2d_color(name, M, colorfunc, xlims=xlims, ylims=ylims, unitlength=unitlength)
 end
