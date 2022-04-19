@@ -327,14 +327,14 @@ function _save_povray_3d3d(name::String, M::BSplineManifold{3, Deg, <:StaticVect
     return nothing
 end
 
-function save_pov(name::String, M::AbstractBSplineManifold{Dim}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5)) where Dim
-    if Dim == 1
-        _save_povray_1d3d(name,M,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
-    elseif Dim == 2
-        _save_povray_2d3d(name,M,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
-    elseif Dim == 3
-        _save_povray_3d3d(name,M,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
-    else
-        error("the dimension of B-spline manifold must be 3 or less")
-    end
+function save_pov(name::String, M::AbstractBSplineManifold{1}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5))
+    _save_povray_1d3d(name,M,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
+end
+
+function save_pov(name::String, M::AbstractBSplineManifold{2}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5))
+    _save_povray_2d3d(name,M,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
+end
+
+function save_pov(name::String, M::AbstractBSplineManifold{3}; mesh::Int=10, points=true, thickness=0.1, maincolor=RGB(1,0,0), subcolor=RGB(.5,.5,.5))
+    _save_povray_3d3d(name,M,mesh=mesh,points=points,thickness=thickness,maincolor=maincolor,subcolor=subcolor)
 end
