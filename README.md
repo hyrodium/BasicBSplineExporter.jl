@@ -27,7 +27,7 @@ rand_a = [rand(2) for i in 1:dim(P), j in 1:dim(P)]
 a = [SVector(2*i-6.5, 2*j-6.5) for i in 1:dim(P), j in 1:dim(P)] + rand_a
 M = BSplineManifold(a, (P,P))
 k₊=(KnotVector(3.3,4.2),KnotVector(3.8,3.2,5.3))
-M′ = refinement(M,k₊=k₊)
+M′ = refinement(M, k₊)
 save_png("2dim.png", M)
 save_png("2dim_refinement.png", M′)
 ```
