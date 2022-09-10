@@ -88,18 +88,18 @@ function _save_luxor_2d2d(name::AbstractString, M::BSplineManifold{2, Deg, <:Sta
 
     setcolor(fillcolor)
     drawbezierpath(BezierPath(vcat(
-        [BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(u¹->M(u¹,K²[1]),K¹[i],K¹[i+1]))...) for i in 1:N¹],
-        [BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(u²->M(K¹[end],u²),K²[i],K²[i+1]))...) for i in 1:N²],
-        [BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(u¹->M(u¹,K²[end]),K¹[end-i+1],K¹[end-i]))...) for i in 1:N¹],
-        [BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(u²->M(K¹[1],u²),K²[end-i+1],K²[end-i]))...) for i in 1:N²]
+        [BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(M(:,K²[1]),K¹[i],K¹[i+1]))...) for i in 1:N¹],
+        [BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(M(K¹[end],:),K²[i],K²[i+1]))...) for i in 1:N²],
+        [BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(M(:,K²[end]),K¹[end-i+1],K¹[end-i]))...) for i in 1:N¹],
+        [BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(M(K¹[1],:),K²[end-i+1],K²[end-i]))...) for i in 1:N²]
     )),:fill,close=true)
 
     setcolor(linecolor)
     for u¹ in range(K¹[1],stop=K¹[end],length=m¹+1)
-        drawbezierpath(BezierPath([BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(u²->M(u¹,u²),K²[i],K²[i+1]))...) for i in 1:N²]),:stroke)
+        drawbezierpath(BezierPath([BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(M(u¹,:),K²[i],K²[i+1]))...) for i in 1:N²]),:stroke)
     end
     for u² in range(K²[1],stop=K²[end],length=m²+1)
-        drawbezierpath(BezierPath([BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(u¹->M(u¹,u²),K¹[i],K¹[i+1]))...) for i in 1:N¹]),:stroke)
+        drawbezierpath(BezierPath([BezierPathSegment(map(p->_luxor_pt(p,unitlength),_bezier(M(:,u²),K¹[i],K¹[i+1]))...) for i in 1:N¹]),:stroke)
     end
 
     if points
@@ -145,7 +145,7 @@ function _save_luxor_1d2d(name::AbstractString, M::BSplineManifold{1, Deg, <:Sta
     background(backgroundcolor)
 
     setcolor(linecolor)
-    drawbezierpath(BezierPath([BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(u¹->M(u¹),K¹[i],K¹[i+1]))...) for i in 1:N¹]),:stroke)
+    drawbezierpath(BezierPath([BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(M, K¹[i], K¹[i+1]))...) for i in 1:N¹]),:stroke)
 
     if points
         CtrlPts = [_luxor_pt(a[i],unitlength) for i in 1:n¹]
@@ -184,10 +184,10 @@ function _save_luxor_2d2d_color(name::AbstractString, M::BSplineManifold{2, Deg,
 
     for I₁ in 1:length(K¹)-1, I₂ in 1:length(K²)-1
         BézPth=BezierPath([
-                BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(t->M(t,K²[I₂]),K¹[I₁],K¹[I₁+1]))...),
-                BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(t->M(K¹[I₁+1],t),K²[I₂],K²[I₂+1]))...),
-                BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(t->M(t,K²[I₂+1]),K¹[I₁+1],K¹[I₁]))...),
-                BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(t->M(K¹[I₁],t),K²[I₂+1],K²[I₂]))...)])
+                BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(M(:,K²[I₂]),K¹[I₁],K¹[I₁+1]))...),
+                BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(M(K¹[I₁+1],:),K²[I₂],K²[I₂+1]))...),
+                BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(M(:,K²[I₂+1]),K¹[I₁+1],K¹[I₁]))...),
+                BezierPathSegment(map(q->_luxor_pt(q,unitlength),_bezier(M(K¹[I₁],:),K²[I₂+1],K²[I₂]))...)])
         mesh1 = Luxor.mesh(BézPth, [
             colorfunc(K¹[I₁],   K²[I₂]  ),
             colorfunc(K¹[I₁+1], K²[I₂]  ),
