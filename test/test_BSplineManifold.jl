@@ -5,6 +5,48 @@ mkpath(DIR)
 @testset "BSplineManifold" begin
     Random.seed!(42)
 
+    @testset "parabola" begin
+        path = joinpath(DIR, "parabola.png")
+
+        # Draw a parabola with BasicBSplineExporter.jl
+        p = 2
+        k = KnotVector([0,0,0,1,1,1])
+        P = BSplineSpace{p}(k)
+        a = [
+            SVector( -2, 4),
+            SVector( 0, -4),
+            SVector( 2, 4),
+        ]
+        M = BSplineManifold(a,P)
+        save_png(path, M;
+                 xlims=(-2,2),
+                 ylims=(-2,2),
+                 thickness=20,
+                 points=false,
+                 unitlength=100,
+                 maincolor=RGB(0,1,1),
+        )
+
+        # Draw a parabola with Images.jl
+        function draw_parabola()
+            img = fill(RGB(1),400,400)
+            d = 0.2
+            for i in 1:400, j in 1:400
+                x = (j - 200.5)/100
+                y = -(i - 200.5)/100
+                a = [(x+d*cospi(t))^2 < y+d*sinpi(t) for t in 0:(1/6):2]
+                if any(a) ≠ all(a)
+                    img[i,j] = RGB(0,1,1)
+                end
+            end
+            return img
+        end
+
+        # Check these are almost same images.
+        diff = draw_parabola() .≈ load(path)
+        @test count(diff)/prod(size(diff)) > 0.99
+    end
+
     @testset "1d2d" begin
         p = 3 # degree of polynomial
         k = KnotVector(1:12) # knot vector

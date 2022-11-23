@@ -3,6 +3,7 @@ using Test
 using Random
 using BasicBSpline
 using Colors
+using Images
 using StaticArrays
 import BasicBSplineExporter._arrayofvector2array
 import BasicBSplineExporter._array2arrayofvector
