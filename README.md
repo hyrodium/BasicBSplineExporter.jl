@@ -2,6 +2,10 @@
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hyrodium.github.io/BasicBSpline.jl/stable/basicbsplineexporter/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hyrodium.github.io/BasicBSpline.jl/dev/basicbsplineexporter/)
+[![Build Status](https://github.com/hyrodium/BasicBSplineExporter.jl/workflows/CI/badge.svg)](https://github.com/hyrodium/BasicBSplineExporter.jl/actions)
+[![Coverage](https://codecov.io/gh/hyrodium/BasicBSplineExporter.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/hyrodium/BasicBSplineExporter.jl)
+[![Aqua QA](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
+
 
 This package supports export `BasicBSpline.BSplineManifold{Dim,Deg,<:StaticVector}` to:
 * PNG image (`.png`)
